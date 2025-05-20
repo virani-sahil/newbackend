@@ -1,4 +1,5 @@
 import Auth from "../models/Auth.js"
+import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
     try {
@@ -19,7 +20,8 @@ export const login = async (req, res) => {
         const data = await Auth.findOne({ email, password })
 
         if (data) {
-            return res.status(200).json({ message: "login successfull", username: data.userName })
+            const token = jwt.sign({email: data?.email}, (process.env.SECRET_KEY), {expiresIn:"1h"})
+            return res.status(200).json({ message: "login successfull", username: data.userName, token })
         } else {
             return res.status(401).json({ error: "unauthorized" })
         }
