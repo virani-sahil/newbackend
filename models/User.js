@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose"
+import constant from "../utils/constant.js"
 
 const USerSchema = new Schema(
     {
@@ -13,7 +14,12 @@ const USerSchema = new Schema(
         password: {
             type: String,
             require: true
-        }
+        },
+        role: {
+            type: String,
+            require: true,
+            enum: constant.ROLE
+        },
     }
 )
 
