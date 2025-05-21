@@ -4,14 +4,14 @@ import bcrypt from "bcrypt";
 
 export const signup = async (req, res) => {
     try {
-        const { id, userName, email, password } = req.body
-        if (!id || !userName || !email || !password) {
-            return res.status(400).json({ message: "id, userName, email, password must required" })
+        const { userName, email, password, role } = req.body
+        if (!userName || !email || !password || !role) {
+            return res.status(400).json({ message: "userName, email, password, role must required" })
         }
         const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const hasPassword = await bcrypt.hash(password, saltRounds);
 
-        await Auth.create({ id, userName, email, password: hashedPassword })
+        await Auth.create({ userName, email, role, password: hasPassword })
         return res.status(200).json({ message: "signup successfull" })
     } catch (err) {
         return res.status(500).json({ message: err.message })
@@ -35,8 +35,6 @@ export const login = async (req, res) => {
         if (data) {
             const token = jwt.sign({ email: data?.email }, (process.env.SECRET_KEY), { expiresIn: "1h" })
             return res.status(200).json({ message: "login successfull", username: data.userName, token })
-        } else {
-            return res.status(401).json({ error: "unauthorized" })
         }
     } catch (err) {
         return res.status(500).json({ message: err.message })

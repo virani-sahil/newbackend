@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose"
-import constant from "../utils/constant.js"
 
 const USerSchema = new Schema(
     {
@@ -7,20 +6,15 @@ const USerSchema = new Schema(
             type: String,
             require: true
         },
-        email: {
-            type: String,
+        price: {
+            type: Number,
             require: true
         },
-        password: {
+        description: {
             type: String,
             require: true
-        },
-        role: {
-            type: String,
-            require: true,
-            enum: constant.ROLE
         },
     }
 )
 
-export default new model("User", USerSchema)
+export default new model("Product", USerSchema)

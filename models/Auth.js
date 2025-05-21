@@ -1,11 +1,8 @@
 import { Schema, model } from "mongoose"
+import constant from "../utils/constant.js"
 
 const AuthSchema = new Schema(
     {
-        id: {
-            type: Number,
-            require: true
-        },
         userName: {
             type: String,
             require: true
@@ -17,7 +14,12 @@ const AuthSchema = new Schema(
         password: {
             type: String,
             require: true
-        }
+        },
+        role: {
+            type: String,
+            require: true,
+            enum: constant.ROLE
+        },
     }
 )
 

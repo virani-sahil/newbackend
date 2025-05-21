@@ -1,3 +1,9 @@
+export const ROLES = {
+    ADMIN: "ADMIN",
+    SUPPLIER: "SUPPLIER",
+    CUSTOMER: 'CUSTOMER'
+}
+
 export default {
-    ROLE: ["ADMIN", "SUPPLIER", "CUSTOMER"]
+    ROLE: [ROLES.ADMIN, ROLES.SUPPLIER, ROLES.CUSTOMER]
 }

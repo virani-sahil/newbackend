@@ -3,7 +3,9 @@ import Auth from "../models/Auth.js";
 
 export const Authentication = async (req, res, next) => {
     try {
-
+        if(!req.headers.authorization){
+             return res.status(401).json({ message: "no token found" })
+        }
         const token = req.headers.authorization.split(" ")[1];
 
         if (!token) {
