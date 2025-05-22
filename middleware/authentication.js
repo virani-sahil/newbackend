@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import Auth from "../models/Auth.js";
+import config from "../config/config.js";
 
 export const Authentication = async (req, res, next) => {
     try {
@@ -11,7 +12,7 @@ export const Authentication = async (req, res, next) => {
         if (!token) {
             return res.status(401).json({ message: "Unauthorized" })
         }
-        const decode = jwt.verify(token, process.env.SECRET_KEY);
+        const decode = jwt.verify(token, config.SECRET.KEY);
 
         if (!decode) {
             return res.status(401).json({ message: "Unauthorized" })

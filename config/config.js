@@ -4,6 +4,10 @@ dotenv.config();
 const config = {
   DATABASE: {
     MONGO_URL: process.env.MONGO_URL
+  },
+
+  SECRET: {
+    KEY: process.env.MONGO_URL
   }
 };
 

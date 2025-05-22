@@ -1,6 +1,7 @@
 import Auth from "../models/Auth.js"
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import config from "../config/config.js";
 
 export const signup = async (req, res) => {
     try {
@@ -33,7 +34,7 @@ export const login = async (req, res) => {
         }
 
         if (data) {
-            const token = jwt.sign({ email: data?.email }, (process.env.SECRET_KEY), { expiresIn: "1h" })
+            const token = jwt.sign({ email: data?.email }, (config.SECRET.KEY), { expiresIn: "1h" })
             return res.status(200).json({ message: "login successfull", username: data.userName, token })
         }
     } catch (err) {
