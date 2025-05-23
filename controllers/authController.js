@@ -22,20 +22,20 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { email, password } = req.body
-        const data = await Auth.findOne({ email })
+        const user = await Auth.findOne({ email })
 
-        if (!data) {
+        if (!user) {
             return res.status(401).json({ message: "Invalid email" });
         }
 
-        const isMatch = await bcrypt.compare(password, data.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(401).json({ message: "Invalid email or password" });
         }
 
-        if (data) {
-            const token = jwt.sign({ email: data?.email }, (config.SECRET.KEY), { expiresIn: "1h" })
-            return res.status(200).json({ message: "login successfull", username: data.userName, token })
+        if (user) {
+            const token = jwt.sign({ email: user?.email, role: user.role }, (config.SECRET.KEY), { expiresIn: "1h" })
+            return res.status(200).json({ message: "login successfull", username: user.userName, token })
         }
     } catch (err) {
         return res.status(500).json({ message: err.message })

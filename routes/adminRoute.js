@@ -1,9 +1,12 @@
 import { Router } from "express";
-import { getUsers } from "../controllers/adminController.js";
-import { Authentication } from "../middleware/authentication.js";
+import { createUser, deleteUser, getUsers, updateUser } from "../controllers/adminController.js";
+import { adminAuth } from "../middleware/authentication.js";
 
 const adminRoute = Router();
 
-adminRoute.get("/users", Authentication, getUsers)
+adminRoute.get("/get-user", adminAuth, getUsers);
+adminRoute.post("/add-user", adminAuth, createUser);
+adminRoute.put("/update-user/:id", adminAuth, updateUser)
+adminRoute.get("/delete-user/:id", adminAuth, deleteUser);
 
 export default adminRoute;
